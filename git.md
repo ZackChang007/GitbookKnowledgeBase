@@ -1,5 +1,5 @@
 ## 把本地项目发布到github
-```
+```bash
 # 在本地仓库文件夹下打开bash
 
 # 查看之前设定的git config信息
@@ -44,7 +44,4 @@ git branch
 # 第一次push的指令
 git remote add origin https://github.com/ZackChang007/demo_repo.git
 git branch -M main
-
 ```
-
-
