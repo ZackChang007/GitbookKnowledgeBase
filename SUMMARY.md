@@ -1,4 +1,5 @@
 # Table of contents
 
-* [git\_mannual](README.md)
+* [git](README.md)
 * [mannual](git\_mannual.md)
+* [conda](conda.md)
