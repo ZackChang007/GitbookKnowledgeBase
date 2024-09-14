@@ -7,3 +7,4 @@
 * [windows_bash](windows_bash.md)
 * [docker](docker.md)
 * [poetry](poetry.md)
+* [linux](linux.md)
