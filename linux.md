@@ -1,7 +1,11 @@
 ## Linux
 ### 运维脚本
 * 复制fromFolder的全部文件（包括子文件夹中的文件，但exclude指定文件）到toFolder的脚本
-```bash
+  - .sh脚本内容见下方
+  - 将脚本保存为`copy_folder.sh`   
+  - 赋予执行权限：`chmod +x copy_folder.sh`
+  - 运行脚本：`./copy_folder.sh`
+```copy_folder.sh
 #!/bin/bash
 
 # 定义文件夹路径
@@ -32,7 +36,4 @@ done
 # Step 3: 复制文件（包括子文件夹），但排除指定文件
 rsync -av "${rsync_excludes[@]}" "$fromFolder/" "$toFolder/"
 ```
-  + 保存并运行脚本
-    - 将脚本保存为`copy_folder.sh`   
-    - 赋予执行权限：`chmod +x copy_folder.sh`
-    - 运行脚本：`./copy_folder.sh`
+
