@@ -19,10 +19,14 @@ cat /Users/admin/.ssh/id_rsa.pub
 ls -al ~/.ssh
 
 
-# 在github建立一个和本地仓库同名的空repo，什么都不要创建，包括readMe、gitignore等
+# 在github建立一个和本地仓库同名的空repo，什么都不要创建，
+# 包括readMe、gitignore等；但可以添加项目描述
 
 # 本地仓库文件初始化为git项目
 git init
+
+# 添加.gitignore文件, 内容取决于项目语言和内容，可咨询gpt生成
+touch .gitignore
 
 # 查看git项目状态
 git status
@@ -31,6 +35,7 @@ git status
 git add main.py
 # 如果add全部文件，直接：
 git add -A
+git add .
 
 # git commit到缓存空间
 git commit -m "init commit"
@@ -44,6 +49,10 @@ git branch
 # 第一次push的指令
 git remote add origin https://github.com/ZackChang007/demo_repo.git
 git branch -M main
+git push -u origin main
+
+git status
+git pull
 ```
 ## discard changes放弃更改
 * 在一个git repo中，先把一个文件复制到别的地方，然后删除了该文件，再把这个文件复制回git repo，全程并没有修改文件，但是`git status`显示如下：`(use "git restore <file>..." to discard changes in working directory)`
