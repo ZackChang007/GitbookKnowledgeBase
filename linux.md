@@ -37,3 +37,30 @@ done
 rsync -av "${rsync_excludes[@]}" "$fromFolder/" "$toFolder/"
 ```
 
+* 切换不同版本的shell
+```bash
+# 查看所有shell版本
+cat /etc/shells
+# 查看系统环境变量中的默认shell版本
+echo $SHELL
+# 查看当前正在执行的shell版本
+echo $0
+
+# 切换到另外的shell
+/usr/bin/tmux
+# 查看当前正在执行的shell
+echo $0
+# 退出当前版本shell
+exit
+```
+### vim
+* 设定vi配置
+```shell
+# 切换到系统根目录
+cd ~
+vi .vimrc
+
+# 写入以下内容并保存退出：
+set nu  # 显示行号
+syntax on  # 语法高亮
+```
