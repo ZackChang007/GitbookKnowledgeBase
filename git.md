@@ -54,6 +54,30 @@ git push -u origin main
 git status
 git pull
 ```
+### Git 无法识别你的用户身份错误
+* 在尝试提交代码时，Git 无法识别你的用户身份，即未设置`user.name`和`user.email`，导致 Git 无法记录提交者的信息。
+* 解决办法：
+```bash
+# 方法一：设置全局的 user.name 和 user.email
+# 如果你希望在所有的 Git 仓库中使用相同的姓名和邮箱，可以设置全局的 user.name 和 user.email：
+git config --global user.name "Your Name"
+git config --global user.email "your.email@example.com"
+
+# 方法二：仅为当前仓库设置 user.name 和 user.email
+# 如果你希望只在当前项目中使用不同的身份信息，而不影响其他项目，可以为当前仓库单独设置：
+git config user.name "Your Name"
+git config user.email "your.email@example.com"
+
+# 确认设置
+# 设置完成后，你可以使用以下命令检查是否配置成功：
+# 检查全局设置：
+git config --global user.name
+git config --global user.email
+
+# 检查当前项目设置：
+git config user.name
+git config user.email
+```
 ## discard changes放弃更改
 * 在一个git repo中，先把一个文件复制到别的地方，然后删除了该文件，再把这个文件复制回git repo，全程并没有修改文件，但是`git status`显示如下：`(use "git restore <file>..." to discard changes in working directory)`
 ```bash
@@ -78,3 +102,55 @@ git checkout -- <filename>
 git diff <filename>
 # 这样你可以更准确地判断问题所在。
 ```
+## Pull Request (PR)
+### 员工A开发并提交代码
+* 确认本地代码正常运行后，员工A创建一个新的分支，比如`tom_branch`，并将代码提交到这个分支。
+```bash
+git branch -a  # 查看所有分支（远程的和本地的），以及当前所在分支
+git checkout master                    # 切换到主分支
+git pull origin master                 # 确保主分支是最新的
+
+# git checkout -b tom_branch  # 第一次使用，创建新的feature分支，参数-b表示创建并切换到一个新的分支
+git checkout tom_branch  # 切换到tom_branch
+git branch -a  # 查看所有分支（远程的和本地的），以及当前所在分支
+
+# 对实际无变化的文件执行git restore
+git diff demo.py
+git restore demo.py
+
+git status
+git add demo.py                    # 添加修改到暂存区
+git status
+git commit -m "Add feature X"  # 提交代码
+
+git pull --rebase origin tom_branch   # 从远程分支拉取最新更新，并使用rebase方式合并
+git push origin tom_branch   # 推送代码到远程分支
+```
+### 员工A创建Pull Request (PR)
+* 员工A登录代码托管平台（如GitHub、GitLab或Bitbucket），并为`tom_branch`分支创建一个Pull Request（PR），将分支中的代码提交到主分支（main）。
+* 在PR的描述中，员工A详细说明了所做的更改、功能实现和测试情况。
+## 配置多个ssh公钥
+* 编辑`~/.ssh/config`文件:
+```config
+# GitHub 个人账号配置
+Host github.com
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/id_rsa
+    IdentitiesOnly yes
+  
+# 公司 GitLab 账号配置
+Host gitlab.com
+    HostName gitlab.hmswork.space   
+    User git
+    IdentityFile ~/.ssh/id_ed25519
+    IdentitiesOnly yes
+```
+* 然后，在`~/.ssh/config`文件中配置多个ssh公钥，每个公钥对应一个Host，并指定对应的私钥文件路径。
+* **把GitLab仓库的远程地址由HTTPS方式改为SSH**：
+  * 查看当前连接方式`git remote -v`, `https`开头的说明当前是https连接方式, `git@`开头的说明当前是ssh连接方式。
+  * 改为SSH：
+    * `git remote set-url origin git@gitlab.hmswork.space:repos/repo_name.git`
+  * 改为HTTPS：
+    * `git remote set-url origin https://gitlab.hmswork.space/repos/repo_name.git`
+* 最后，在终端输入`ssh -T git@github.com`或`ssh -T git@gitlab.hmswork.space`，测试是否成功。
