@@ -153,4 +153,7 @@ Host gitlab.com
     * `git remote set-url origin git@gitlab.hmswork.space:repos/repo_name.git`
   * 改为HTTPS：
     * `git remote set-url origin https://gitlab.hmswork.space/repos/repo_name.git`
-* 最后，在终端输入`ssh -T git@github.com`或`ssh -T git@gitlab.hmswork.space`，测试是否成功。
+* 最后，在终端输入`ssh -T git@github.com`或`ssh -Tvvv git@gitlab.hmswork.space`，测试是否成功。
+  * `-Tvvv`参数用于debug
+  * 如果出现`Connection timed out`，可尝试`ping gitlab.hmswork.space`或者`curl -v telnet://gitlab.hmswork.space:22`
+  * 有时候DNS解析可能有问题，可以尝试直接使用`ping`解析到的IP地址连接`ssh -Tvvv git@192.168.1.1`
