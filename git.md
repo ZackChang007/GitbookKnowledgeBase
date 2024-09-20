@@ -159,3 +159,17 @@ Host gitlab.com
   * `-Tvvv`参数用于debug
   * 如果出现`Connection timed out`，可尝试`ping gitlab.hmswork.space`或者`curl -v telnet://gitlab.hmswork.space:22`
   * 有时候DNS解析可能有问题，可以尝试直接使用`ping`解析到的IP地址连接`ssh -Tvvv git@192.168.1.1`
+## 切换到某次历史的 commit 提交
+```bash
+# 查找目标 commit 的哈希值，显示你所有的 commit，找到你要切换的 commit 哈希值（前几位即可）。
+git log
+
+# 切换到该 commit，此时你处于“分离 HEAD”状态，意味着没有在任何分支上，而只是查看某个历史状态。
+git checkout <commit-hash>
+# 例如：
+git checkout 1a2b3c4d
+
+# 如果需要返回到最新的 commit 或继续开发：
+git checkout <branch-name>
+git checkout main
+```
