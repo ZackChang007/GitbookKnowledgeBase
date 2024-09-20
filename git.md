@@ -114,6 +114,8 @@ git pull origin master                 # 确保主分支是最新的
 git checkout tom_branch  # 切换到tom_branch
 git branch -a  # 查看所有分支（远程的和本地的），以及当前所在分支
 
+"""切换到tom_branch后，再创建新的文件或修改已有文件，不要在master branch上变动和提交！！！"""
+
 # 对实际无变化的文件执行git restore
 git diff demo.py
 git restore demo.py
