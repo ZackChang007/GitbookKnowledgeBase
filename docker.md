@@ -1,5 +1,5 @@
 # 基础操作
-- https://www.imooc.com/video/14624
+- <https://www.imooc.com/video/14624>
 ## image镜像
 ### 打开docker daemon
 ### 查看当前docker images
@@ -64,7 +64,7 @@
    ```
 ## docker网络
 ### 网络类型
-- https://www.imooc.com/video/14623
+- <https://www.imooc.com/video/14623>
 #### docker网络隔离原理
 + docker底层是linux技术，通过namespace进行隔离，包括网络
 #### docker网络分类
@@ -124,7 +124,7 @@ tcp46      0      0  *.55000                *.*                    LISTEN
 docker stop 7c52
 ```          
 #### 把容器网络配置为host
-- https://weread.qq.com/web/reader/93d325a0719b200493d5ba9kc1632f5021fc16a5320f3dc
+- <https://weread.qq.com/web/reader/93d325a0719b200493d5ba9kc1632f5021fc16a5320f3dc>
 ```shell script
 docker ps
 
@@ -168,6 +168,6 @@ exit
 ```
 
 ## 制作自己的镜像image
-- https://yeasy.gitbook.io/docker_practice/image/build
+- <https://yeasy.gitbook.io/docker_practice/image/build>
 
 ### Dockerfile
