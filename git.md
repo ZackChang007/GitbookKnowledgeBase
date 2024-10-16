@@ -173,3 +173,12 @@ git checkout 1a2b3c4d
 git checkout <branch-name>
 git checkout main
 ```
+## .ipynb换行符格式不一致
+* `warning: in the working copy of 'demo.ipynb', LF will be replaced by CRLF the next time Git touches it`
+  * 在 Windows 系统上，换行符通常是 `CRLF`（回车+换行），而在 Linux 和 macOS 上，换行符通常是 `LF`（换行）。Git 在跨平台协作时，会自动处理这些换行符，但在某些情况下可能会给出这个警告，表示它将在下次修改文件时将换行符从 `LF` 转换为 `CRLF`。
+* 解决方法：添加`.gitattributes`文件
+  * 在项目根目录下添加一个`.gitattributes`文件，明确指定哪些文件使用哪种换行符。例如，针对 `.ipynb` 文件，可以指定使用`LF`：`*.ipynb text eol=lf`
+  * `.gitattributes`的全局影响可能影响除了`.ipynb`文件之外的其他类型文件，如`.md`文件；如果不希望影响其他文件，可以在`.gitattributes`中明确指定不同文件类型的规则，如：`*.md text=auto`
+  * `git add .gitattributes`
+  * 规范化文件的换行符：`git add --renormalize .`
+  * 提交更改：`git commit -m "Apply .gitattributes and normalize line endings"`
