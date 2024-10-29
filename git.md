@@ -182,3 +182,35 @@ git checkout main
   * `git add .gitattributes`
   * 规范化文件的换行符：`git add --renormalize .`
   * 提交更改：`git commit -m "Apply .gitattributes and normalize line endings"`
+## PTA(Personal Access Token)
+* GitHub——Settings——Developer settings——Personal access tokens > Tokens (classic) > Generate new token
+```bash
+# 直接在命令中使用PAT，有安全隐患，会被记录在bash_history中
+git clone https://<PAT>@github.com/your_username/repo.git
+# 查看最近5条bash history
+history 5
+# 删除bash history
+history -c  # 清除当前会话的历史记录。
+history -w  # 将当前清空的历史记录立即写入 .bash_history 文件，覆盖之前的记录。
+
+# PAT设置在环境变量中，并在使用后删除
+export GITHUB_TOKEN="your_personal_access_token_here"
+git clone https://$GITHUB_TOKEN@github.com/your_username/your_repo.git
+unset GITHUB_TOKEN  # 清除环境变量
+
+# 使用临时变量（无记录）
+GITHUB_TOKEN="your_token" git clone https://$GITHUB_TOKEN@github.com/your_username/your_repo.git
+
+# 使用 read 读取 Token
+read -s -p "Enter your GitHub PAT: " GITHUB_TOKEN  # -s 选项将隐藏输入
+git clone https://$GITHUB_TOKEN@github.com/your_username/your_repo.git
+
+# 在 .env 文件中管理
+# 您可以将 PAT 存储在 .env 文件中，并在需要时加载
+# .env 文件
+GITHUB_TOKEN="your_token"
+# 然后在终端中加载 .env 文件并使用：
+source .env
+git clone https://$GITHUB_TOKEN@github.com/your_username/your_repo.git
+```
+ 
