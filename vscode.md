@@ -21,3 +21,6 @@ sys.path.append(r"C:\repos\repo_a")
 
 # 接下来即可正常导入repo_A的包
 ```
+
+## 为 Python 开发人员提供完整、实用的 VSCode 设置
+* <https://www.youtube.com/watch?v=PwGKhvqJCQM>
