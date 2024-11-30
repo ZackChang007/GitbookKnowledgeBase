@@ -12,3 +12,4 @@
 * [linux](./docs/linux.md)
 * [tmux](./docs/tmux.md)
 * [toml](./docs/toml.md)
+* [yaml](./docs/yaml.md)

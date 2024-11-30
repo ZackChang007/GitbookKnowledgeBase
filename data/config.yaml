@@ -1,0 +1,99 @@
+# Web server configuration
+
+info:
+  # version的值可以不加双引号，yaml会根据值推断其数据格式
+  # 如"1.0.0"会被识别为字符串类型，而1.0.0会被识别为浮点数类型
+  # 但为了避免歧义，还是建议加上双引号
+  version: "1.0.0"
+  website: "https://gitbook.com"
+
+database:
+  type: "mongodb"
+  host: "localhost"
+  port: 27017
+
+routes:
+  # - 表示创建list, list中的元素可以是字典或者字符串
+  - path: /api
+    method: [GET, POST, PUT, DELETE]
+  - path: /docs
+    method: [GET]
+input: "----------------------------------------------DataTypes------------------------------------------------------"
+
+# Data Types
+string: "This is a string"
+int: 123
+float: 3.14159
+boolean: true  # yes, on
+bool: off  # false, no
+null_value: null  # ~
+
+mapping:
+  key1: value1
+  key2: value2
+
+list_1: [item1, item2, item3]
+
+list:
+  - item1
+  - item2
+  - item3
+
+nest_mapping:
+  key1:
+    subkey1: subvalue1
+    subkey2: subvalue2
+  key2:
+    subkey1: subvalue1
+    subkey2: subvalue2
+
+nest_list:
+  - list1:
+    - item1
+    - item2
+    - item3
+  - list2:
+    - item4
+    - item5
+    - item6
+input_1: "----------------------------------------------Features------------------------------------------------------"
+
+# Features
+# 1. 支持注释
+# 2. 支持多行字符串
+# 3. 支持字典嵌套
+# 4. 支持列表嵌套
+# 5. 支持布尔值
+# 6. 支持null值
+# 7. 支持整数、浮点数、字符串等基本数据类型
+text: This is 
+  a multi-line 
+  string.
+
+text_1: | 
+  This is 
+  a multi-line 
+  string.
+
+text_2: > 
+  This is 
+  a multi-line 
+
+  string.
+
+item: &item_anchor [1, 2, 300]  # 定义锚点, 锚点可以理解为一个变量
+tool:
+  name: "hammer"
+  item: *item_anchor  # 使用锚点(引用变量)
+
+person: &person_anchor
+  name: "John Smith"
+  age: 30
+  hobbies:
+    - "reading"
+    - "swimming"
+another_person:
+  <<: *person_anchor  # 引用锚点
+  name: "Jane Doe"
+  hobbies:
+    - "hiking"
