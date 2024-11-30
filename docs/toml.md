@@ -1,7 +1,7 @@
 # TOML
 * Ref:
   * [Learn TOML in 10 Minutes (Tutorial)](https://www.youtube.com/watch?v=D_Jb52jw2HY)
-* .toml文件示例:
+* .toml文件示例: [config.toml](../data/config.toml)
 ```toml
 # 注释, config.toml
 name = "My Project"
@@ -37,7 +37,7 @@ fruit = "banana"
 [[table_group]]
 fruit = "orange"
 ```
-* 读取 TOML 文件:
+* 读取 TOML 文件: [read_toml.py](../src/read_toml.py)
 ```python
 # 读取 TOML 文件
 import tomllib  # python 3.11官方库
