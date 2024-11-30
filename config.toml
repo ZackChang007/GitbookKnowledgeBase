@@ -1,0 +1,28 @@
+name = "My Project"
+version = "0.1.0"
+website = "https://example.com"
+
+[items]
+numbers = [1, 2, 3, 4, 5]
+letters = ["a", "b", "c"]
+
+[items.details]
+updated = true
+author = "John Doe"
+timestamp = 2021-01-01T12:34:56Z
+
+[database]
+file.type = "sqlite"
+file.path = "mydatabase.db"
+
+[inline_table]
+inline = {key = "value", number = 123}
+
+[[table_group]]
+fruit = "apple"
+
+[[table_group]]
+fruit = "banana"
+
+[[table_group]]
+fruit = "orange"
