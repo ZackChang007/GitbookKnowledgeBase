@@ -50,14 +50,14 @@ def load_toml(path) -> dict:
         toml_data: dict = tomllib.load(f)
         return toml_data
 
-pprint(load_toml("config.toml"), sort_dicts=False)
+pprint(load_toml("./data/config.toml"), sort_dicts=False)
 
 
 # 如果是python 3.9可用tomli
 import tomli
 from pprint import pprint
 
-with open('config.toml', 'rb') as f:
+with open('./data/config.toml', 'rb') as f:
     data = tomli.load(f)
 
 pprint(data, sort_dicts=False)

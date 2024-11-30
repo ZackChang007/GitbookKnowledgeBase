@@ -213,4 +213,3 @@ GITHUB_TOKEN="your_token"
 source .env
 git clone https://$GITHUB_TOKEN@github.com/your_username/your_repo.git
 ```
- 
