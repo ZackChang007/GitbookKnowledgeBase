@@ -146,7 +146,7 @@ poetry init
 ## 管理依赖项
 ### Dependency groups  依赖项组
 * Poetry 提供了一种按组组织依赖项的方法。例如，您可能拥有仅用于测试项目或构建文档的依赖项。
-* 要声明新的依赖项组，请使用 tool.poetry.group.<group> 部分，其中 <group> 是依赖项组的名称（例如，test）：
+* 要声明新的依赖项组，请使用 `tool.poetry.group.<group>` 部分，其中 `<group>` 是依赖项组的名称（例如，test）：
 ```toml
 [tool.poetry.group.test]  # This part can be left out
 
@@ -189,3 +189,8 @@ mkdocs = "*"
   ```
 ### Layering optional groups  分层可选组
 * 省略 --sync 选项时，可以安装可选组的任何子集，而无需删除已安装的可选组。这非常有用，例如，在多阶段 Docker 构建中，您可以在不同的构建阶段多次运行 poetry install。
+## issues
+### 用pycharm打开repo时显示需要poetry程序执行路径
+* poetry使用pipx安装，其路径在pipx的envs路径下，可以使用`pipx list`查看具体路径
+### `poetry show`显示部分包的字体颜色为红色
+* 一般是这些包有问题，建议运行`poetry install`重新更新和安装有问题的红色字体包
