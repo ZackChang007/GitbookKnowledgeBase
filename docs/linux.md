@@ -64,3 +64,11 @@ vi .vimrc
 set nu  # 显示行号
 syntax on  # 语法高亮
 ```
+### 命令行
+```bash
+# 查看本机公网ip
+curl ifconfig.me
+
+# 查看ROM存储空间，包括系统盘之外挂载的数据盘
+lsblk
+```
