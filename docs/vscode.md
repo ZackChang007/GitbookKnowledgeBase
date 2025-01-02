@@ -18,7 +18,15 @@ print(Path.cwd())
 import sys
 sys.path.append(r"C:\repos\repo_a")
 
+"""方法三"""
 
+import os
+import sys
+script_dir = os.path.dirname(os.path.abspath(__file__))
+while not os.path.exists(os.path.join(script_dir, ".gitignore")):
+    script_dir = os.path.dirname(script_dir)
+repo_path = script_dir
+sys.path.append(repo_path)
 # 接下来即可正常导入repo_A的包
 ```
 
