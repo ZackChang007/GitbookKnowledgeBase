@@ -182,7 +182,7 @@ git checkout main
   * `git add .gitattributes`
   * 规范化文件的换行符：`git add --renormalize .`
   * 提交更改：`git commit -m "Apply .gitattributes and normalize line endings"`
-## PTA(Personal Access Token)
+## PAT(Personal Access Token)
 * GitHub——Settings——Developer settings——Personal access tokens > Tokens (classic) > Generate new token
 ```bash
 # 直接在命令中使用PAT，有安全隐患，会被记录在bash_history中
@@ -212,4 +212,24 @@ GITHUB_TOKEN="your_token"
 # 然后在终端中加载 .env 文件并使用：
 source .env
 git clone https://$GITHUB_TOKEN@github.com/your_username/your_repo.git
+```
+### 使用PAT方式clone到公司服务器上的个人github repo，PAT已过期，如何恢复正常使用git
+* 重新生成PAT，一般PAT临近过期时，会发送邮件到注册邮箱，提示重新生成，点击邮箱连接即可重新生成原来的PAT，且权限配置不变
+```bash
+# 查看之前的repo  URL名称，显示的是旧的已经过期的PAT
+cd /path/to/your/repo
+git remote -v
+
+# 更新 URL 以包含新的 PAT
+git remote set-url origin https://<PAT>@github.com/username/repo.git
+# 确保 URL 更新正确，新的repo  URL中包含新PAT即表示更新成功
+git remote -v
+git pull
+
+# 为了安全性，建议在首次验证后删除 PAT，改用缓存或凭证管理：
+git remote set-url origin https://github.com/username/repo.git
+git remote -v
+# 然后运行以下命令以缓存凭据：
+git config --global credential.helper cache
+# 之后，Git 会在需要时提示输入用户名和新PAT，并将其临时缓存。
 ```
