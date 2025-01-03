@@ -1,6 +1,7 @@
 # tmux
 * Ref: 
   * [轻松玩转 Tmux](https://www.wolai.com/stupidccl/tV4zUjv3G8ufVDqeXY4fck)
+  * [.tmux](https://github.com/gpakosz/.tmux)
 ## 设置alias
 * 以下内容粘贴到/.bashrc或~/.zshrc文件中
 ```bash
@@ -56,3 +57,38 @@ alias trename="tmux rename-session -t "
   * 光标左移：`tl`
   * 光标右移：`tr`
 * 切换会话：`tswitch test`
+## 组合键
+```bash
+############## 面板管理 ##############
+Ctrl + a + %  # 水平分割窗口
+Ctrl + a + "  # 垂直分割窗口"
+Ctrl + a + o  # 在当前窗口中切换到下一个面板
+Ctrl + a + x  # 关闭当前面板（等同于 tmux kill-pane）
+Ctrl + a + 空格  # 切换面板布局（比如平铺、均分等）
+Ctrl + a + z  # 放大/还原当前面板（当前面板全屏显示）
+
+############## 窗口管理 ##############
+Ctrl + a + c  # 创建新窗口
+Ctrl + a + ,  # 重命名当前窗口
+Ctrl + a + w  # 列出当前会话中的所有窗口
+Ctrl + a + &  # 关闭当前窗口（等同于 tmux kill-window）
+
+############## 会话管理 ##############
+Ctrl + a + d  # 将当前会话分离，返回到普通终端（等同于 detach）
+Ctrl + a + s  # 列出所有会话，方便选择连接
+Ctrl + a + $  # 重命名当前会话
+
+############## 复制模式 ##############
+Ctrl + a + [  # 进入复制模式，用于滚动查看历史输出
+Ctrl + a + ]  # 粘贴复制模式的内容
+Ctrl + a + Ctrl + f  # 在复制模式中向前搜索
+Ctrl + a + Ctrl + b  # 在复制模式中向后搜索
+
+############## 多个会话的操作 ##############
+Ctrl + a + :  # 打开 tmux 命令提示符，输入命令直接控制会话
+Ctrl + a + t  # 显示时钟
+Ctrl + a + ?  # 列出所有 tmux 绑定快捷键
+
+############## 其他 ##############
+ctrl+a [0-9]  # 切换同一会话(session)的不同窗口(window)
+```
