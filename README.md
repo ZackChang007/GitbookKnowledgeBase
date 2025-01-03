@@ -13,3 +13,4 @@
 * [tmux](./docs/tmux.md)
 * [toml](./docs/toml.md)
 * [yaml](./docs/yaml.md)
+* [ssh](./docs/ssh.md)
