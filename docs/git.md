@@ -233,3 +233,13 @@ git remote -v
 git config --global credential.helper cache
 # 之后，Git 会在需要时提示输入用户名和新PAT，并将其临时缓存。
 ```
+## 丢弃本地修改，防止git pull冲突
+* 场景描述：
+  * 对于同一个git repo中的同一文件tt.py，在A和B电脑上都对该文件分别做了不同的更新。
+  * A电脑上的更新提交了git push，且以A为准；
+  * B电脑上的更新没有提交git push，因为B电脑上对tt.py的修改仅是临时测试用。
+  * 在B电脑上进行git pull操作前，需要先丢弃本地未提交的改动：
+```bash
+git checkout -- tt.py  # 丢弃本地对 tt.py 的修改
+git pull               # 拉取远程更新
+```
