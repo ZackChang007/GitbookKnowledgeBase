@@ -243,3 +243,90 @@ git config --global credential.helper cache
 git checkout -- tt.py  # 丢弃本地对 tt.py 的修改
 git pull               # 拉取远程更新
 ```
+## 分支管理
+### dev分支暂存部分文件，稍晚再merge到master/main分支
+* 场景描述：
+  * 在公司的gitlab repo A下的一个名为aa的文件夹中，开发维护个人独立项目github repo aa，并定期提交repo aa中的代码给repo A，供team leader审阅代码，目前aa只有一个branch main，后续也以aa repo main branch为标准向公司gitlab repo A提交代码
+  * 首先给个人github repo aa新建一个dev branch，dev会包括所有最新的文件，但只会定期选择性合并dev中的部分文件（如file1.py, file2.py）到main branch；对于开发测试中的file3.py，会暂时将该文件的commit记录在dev中维护，暂不merge到main
+  * 当file3.py的阶段性版本确定后，将它从dev合并到main，并提交给公司gitlab repo A
+* 步骤 1：在个人 repo aa 中创建 dev 分支
+```bash
+# 切换到 main 分支： 确保当前位于 main 分支
+git branch
+git checkout main
+# 从 main 创建 dev 分支
+# 此时，dev 分支与 main 分支内容相同，后续的开发和测试将在 dev 分支中进行。
+git checkout -b dev
+git branch
+```
+* 步骤 2：在 dev 分支中进行开发
+```bash
+# 正常开发和提交： 在 dev 分支中修改代码并提交，例如对 file3.py 进行开发和测试：
+# 多次提交： 每次更新 file3.py，都可以继续在 dev 中提交，这些 commit 将记录在 dev 分支历史中。
+git add file3.py
+git commit -m "Work in progress on file3.py"
+# 仅当远程dev分支已经被其他地方更新（如你在另一台电脑上提交了更改）、或其他用户更新，才需要执行git pull --rebase origin dev：
+# 当只有自己一个用户在一台电脑上开发时，可以不执行 git pull --rebase origin dev：
+git pull --rebase origin dev
+git push origin dev
+
+# 在新电脑上获取最新的远程分支（应包括main和dev分支）：
+git fetch origin
+git branch -a
+# 切换到本地 dev 分支并跟踪远程
+git checkout -b dev origin/dev
+```
+* 步骤 3：选择性合并 dev 的部分文件到 main
+```bash
+# 切换到 main 分支：
+git checkout main
+# 选择性合并文件（file1.py 和 file2.py）到 main： 使用 git checkout dev -- <file> 命令将文件从 dev 提取到 main：
+git checkout dev -- file1.py
+git checkout dev -- file2.py
+# 查看更改并提交：
+# 确认提取的文件内容正确：
+git status
+git diff
+# 提交更改：
+git add file1.py file2.py
+git commit -m "Merge file1.py and file2.py from dev to main"
+git push origin main
+```
+* 步骤 4：合并 file3.py 到 main（阶段性完成）
+```bash
+# 切换到 main 分支： 确保在 main 分支：
+git checkout main
+# 选择性提取 file3.py： 使用 git checkout dev -- file3.py：
+git checkout dev -- file3.py
+git status
+git diff
+git add file3.py
+git commit -m "Merge stable version of file3.py from dev to main"
+# 推送到 GitHub
+git push origin main
+```
+* 步骤 5：将 dev 分支合并到 main 分支
+```bash
+# 切换到 main 分支：
+git checkout main
+# 执行合并操作： 将 dev 分支的所有提交合并到 main 中：
+git merge dev
+# 解决冲突： 如有冲突，需要手动解决冲突，然后再提交：
+git status
+git add file1.py file2.py file3.py
+git commit -m "Merge dev to main"
+# 推送到 GitHub
+git push origin main
+
+# 合并完成后需要注意的事项
+# 同步 main 到 dev 分支（保持一致性）： 如果 main 是主分支，通常在合并后会将最新的 main 同步回 dev，以避免后续开发时两者出现不一致：
+git checkout dev
+git merge main
+# 检查分支状态： 合并完成后，确保两者内容一致：
+git diff main dev
+# 删除临时分支（可选）： 如果 dev 分支已完成阶段性目标且暂时不需要，可以删除本地或远程的 dev 分支（仅当后续开发不依赖于 dev 时）：
+# 删除本地分支：
+git branch -d dev
+# 删除远程分支：
+git push origin --delete dev
+```
