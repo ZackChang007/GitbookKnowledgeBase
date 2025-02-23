@@ -9,6 +9,7 @@ git config --global --list --show-origin
 # 参考：https://github.com/settings/keys
 # 生成ssh公钥
 ssh-keygen -t rsa -C '邮箱名 其他标识性字段'
+ssh-keygen -t ed25519 -C "your_email@example.com"
 # 查看公钥
 cat /Users/admin/.ssh/id_rsa.pub
 # 把公钥信息粘贴到github上
