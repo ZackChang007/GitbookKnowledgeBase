@@ -160,6 +160,46 @@ Host gitlab.com
   * `-Tvvv`参数用于debug
   * 如果出现`Connection timed out`，可尝试`ping gitlab.hmswork.space`或者`curl -v telnet://gitlab.hmswork.space:22`
   * 有时候DNS解析可能有问题，可以尝试直接使用`ping`解析到的IP地址连接`ssh -Tvvv git@192.168.1.1`
+### 个人git管理整个repo_A，公司gitlab管理repo_A下的子目录repo_AA
+* ssh config文件已经配置了github和gitlab的ssh key 
+```bash
+cd repo_A/repo_AA
+# 初始化子仓库
+git init --initial-branch=main
+
+
+# 设置 Git 用户名（仅作用于当前仓库）
+git config user.name "Your Company Name"
+# 设置 Git 邮箱（建议与你的 GitLab 公司账户一致）
+git config user.email "you@company.com"
+
+# 这会在 repo_AA/.git/config 中添加类似：
+[user]
+    name = Your Company Name
+    email = you@company.com
+
+# 查看当前生效的配置
+git config user.name
+git config user.email
+
+
+git remote add origin git@gitlab.hmswork.space:your_gitlab_user/repo_AA.git
+cat .git/config
+
+git add test.txt
+git commit -m "add test.txt"
+# 将本地分支 main 与远程的 origin/main 关联起来（建立 upstream tracking 关系）
+# 只有初次commit时才需要执行，以后直接git push即可
+git push --set-upstream origin main
+# 或者以下也和上面命令相同
+git push -u origin main
+
+
+#########################日常开发方式###########################
+# 在个人github repo_A上进行日常开发和git维护
+# 每次有commit，先向github repo_A提交
+# 然后切换到gitlab repo_AA，把相关修改和commit msg提交到gitlab
+```
 ## 切换到某次历史的 commit 提交
 ```bash
 # 查找目标 commit 的哈希值，显示你所有的 commit，找到你要切换的 commit 哈希值（前几位即可）。
