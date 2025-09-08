@@ -31,3 +31,40 @@ ssh-keygen -t ed25519 -C "your_email@example.com - Workstation1 - ProjectABC"
 # 尝试连接远程服务器
 ssh server1
 ```
+
+### 局域网内从windows机器A通过ssh连接到windows机器B
+
+```bash
+# windows机器A上生成密钥对
+ssh-keygen -t ed25519 -C "your_email@example.com - Workstation1 - ProjectABC"
+# 把生成的公钥复制到windows机器B的~/.ssh/文件夹中
+
+
+# 在windows机器B上打开 PowerShell（管理员权限），输入：
+Get-WindowsCapability -Online | ? Name -like 'OpenSSH.Server*'
+# 如果显示 Installed，说明已经装好了；如果显示 NotPresent，需要安装
+# 安装 OpenSSH Server
+Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
+# 启动 SSH 服务
+Start-Service sshd
+# 设置开机自启
+Set-Service -Name sshd -StartupType 'Automatic'
+# 确认服务在运行
+Get-Service sshd
+# 默认情况下，Windows 防火墙会阻止端口 22。执行：
+New-NetFirewallRule -Name sshd -DisplayName 'OpenSSH Server (sshd)' -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 22
+
+
+# 在windows机器A上尝试ssh连接windows机器B
+ssh WindowsB_user@192.168.1.100
+
+# 在vscode中配置ssh连接
+Host WindowsB
+  HostName 192.168.1.100
+  port 22
+  User WindowsB_user
+  IdentityFile ~/.ssh/id_ed25519_WindowsB 
+
+# ssh到windowsB机器后，在vscode中使用以下命令打开远程机器的repo：
+ctrl + o
+```
