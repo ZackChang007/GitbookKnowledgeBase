@@ -68,3 +68,36 @@ Host WindowsB
 # ssh到windowsB机器后，在vscode中使用以下命令打开远程机器的repo：
 ctrl + o
 ```
+
+### 从家里win11电脑ssh到公司win10电脑
+
+```bash
+# 查看公司电脑公网ip
+curl ipinfo.io/ip
+# 公网 IP 假设是 123.45.67.89
+
+
+# 公司电脑上启用ssh服务
+# 以管理员身份打开 PowerShell
+# 安装 OpenSSH Server
+Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
+# 启动并设置开机自启
+Start-Service sshd
+Set-Service -Name sshd -StartupType 'Automatic'
+# 开放防火墙 22 端口
+New-NetFirewallRule -Name sshd -DisplayName 'OpenSSH Server (sshd)' `
+    -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 22
+# 查看 SSH 服务状态
+Get-Service sshd
+
+
+# 确认可用用户名和 IP
+# 在公司电脑 PowerShell 输入
+whoami
+# 假设结果是：company-PC\Zack，则你的用户名是 Zack
+
+
+# 在家里电脑生成ssh key
+ssh-keygen -t ed25519 -C "123@gmail.com - company-PC - Zack"
+# 把公钥放到公司电脑的.ssh文件夹下
+```
