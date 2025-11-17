@@ -1,5 +1,7 @@
 # ssh
+
 ## 在windows terminal中使用ssh连接远程服务器
+
 ```bash
 # 查看有哪些ssh config
 # dir 是 Windows 中的内置命令，可以在当前目录及其子目录中查找文件或文件夹
@@ -13,7 +15,9 @@ dir
 # 如果密钥配置好，一般可以直接连接成功
 ssh server1
 ```
+
 ## 生成ssh pub key
+
 ```bash
 # 生成ssh密钥对
 ssh-keygen -t ed25519 -C '邮箱名 其他标识性字段'
