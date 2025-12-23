@@ -177,6 +177,28 @@ mkdocs = "*"
 * 在某些情况下，您可能希望仅安装特定的依赖项组，而不安装默认的依赖项集。为此，您可以使用 --only 选项。`poetry install --only docs`
   + 如果只想安装项目的运行时依赖项，则可以使用 --only main 表示法来实现：`poetry install --only main`
   + 如果要安装项目根目录，而不安装其他依赖项，则可以使用 --only-root 选项。`poetry install --only-root`
+
+* 安装命令如下：
+  * `poetry install`，默认只装核心依赖
+  * `poetry install --with alpha,dev`，多组同时启用
+
+```toml
+[tool.poetry.dependencies]
+vnpy = "4.2.0"
+
+[tool.poetry.group.alpha.dependencies]
+polars = ">=1.26.0"
+scipy = ">=1.15.2"
+alphalens-reloaded = ">=0.4.5"
+scikit-learn = ">=1.6.1"
+lightgbm = ">=4.6.0"
+torch = ">=2.6.0"
+pyarrow = ">=19.0.1"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3"
+```
+
 #### 从组中删除依赖项
 * remove 命令支持 --group 选项，用于从特定组中删除包：`poetry remove mkdocs --group docs`
 ### 同步依赖项
