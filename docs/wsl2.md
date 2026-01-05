@@ -1,12 +1,18 @@
+# wsl2
+
 ## 网络问题
+
 * 禁止wsl2虚拟网卡生成动态ip地址
+
 ```bash
 sudo vi /etc/wsl.conf
 # 写入：
 [network]
 generateResolvConf = false
 ```
+
 * 给`/etc/resolv.conf`添加几个有效DNS server
+
 ```bash
 sudo vi /etc/resolv.conf
 # 写入：
@@ -17,7 +23,18 @@ nameserver 8.8.4.4
 nameserver 1.1.1.1
 nameserver 114.114.114.114
 ```
+
+* 给`/etc/resolv.conf`添加WSL的DNS server
+
+```bash
+sudo vi /etc/resolv.conf
+# you can find your base domain after running in powershell this ipconfig|findstr DNS-Suffix
+# 在宿主机host的终端中输入ipconfig，找到“Ethernet adapter vEthernet (WSL (Hyper-V firewall)):”下的IPv4 Address并添加到resolv.conf中
+nameserver 172.23.112.1
+```
+
 * 在wsl2 ubuntu中设置host的网络代理：
+
 ```bash
 sudo vi /etc/environment
 # 写入：
