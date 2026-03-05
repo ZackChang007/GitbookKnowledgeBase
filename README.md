@@ -14,3 +14,4 @@
 * [toml](./docs/toml.md)
 * [yaml](./docs/yaml.md)
 * [ssh](./docs/ssh.md)
+* [smtp](./docs/smtp.md)
