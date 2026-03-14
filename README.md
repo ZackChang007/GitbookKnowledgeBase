@@ -15,3 +15,4 @@
 * [yaml](./docs/yaml.md)
 * [ssh](./docs/ssh.md)
 * [smtp](./docs/smtp.md)
+* [tailscale](./docs/tailscale.md)
